@@ -672,8 +672,9 @@
       <label>What is your requirement?</label>
       <select>
         <option value="">Select an option</option>
-        <option>Buy a Property</option>
-        <option>Sell a Property</option>
+        <option>Buying</option>
+        <option>Selling</option>
+        <option>Leasing</option>
         <option>Investment Guidance</option>
         <option>Property Management</option>
         <option>Off-Plan Investment</option>
@@ -783,7 +784,22 @@
 
   // Form submit
   document.querySelector('.form-submit').addEventListener('click', () => {
-    alert('Thank you! Our team will be in touch shortly.');
+    const name = document.querySelector('input[type="text"]').value;
+    const email = document.querySelector('input[type="email"]').value;
+    const phone = document.querySelector('input[type="tel"]').value;
+    const requirement = document.querySelector('select').value;
+
+    if (!name || !email || !phone) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    const subject = encodeURIComponent('New Inquiry - Bright View Real Estate');
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nRequirement: ${requirement || 'Not specified'}`
+    );
+
+    window.location.href = `mailto:inquiry@brightview-re.com?subject=${subject}&body=${body}`;
   });
 </script>
 </body>
